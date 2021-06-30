@@ -10,7 +10,7 @@ def saver(notes, nn)
   for note in notes do
     nf.puts(note)
   end
-  puts("black note ~ #{nn} saved [ok]")
+  puts("black note ➜ #{nn} saved [ok]")
   nf.close()
 end
 
@@ -21,11 +21,11 @@ def maker()
 end
 
 def newer()
-  print("black note ~ enter name of note ~ ")
+  print("black note ➜ enter name of note ~ ")
   nn = gets.chomp()
   maker()
   if File.exists?(".notes/#{nn}") then
-    puts("black note ~ this file exists !")
+    puts("black note ➜ this file exists !")
     exit()
   end
   line = 0
@@ -34,7 +34,7 @@ def newer()
     print("[#{line}]~ ")
     note=gets.chomp()
     if note == "quit" 
-      print("black note ~ save the change's [Y/n]~ ")
+      print("black note ➜ save the change's [Y/n]~ ")
       yn = gets.chomp()
       if yn == "y"
         saver(notes, nn)
@@ -54,27 +54,27 @@ def lister()
   if File.exists?(".notes/notes") then
     File.foreach(".notes/notes"){|line| puts("[N]~ #{line}")}
   else 
-    puts("black note ~ there aren't any notes")
+    puts("black note ➜ there aren't any notes")
   end
 end
 
 def reader()
-  print("black note ~ enter name of note ~ ")  
+  print("black note ➜ enter name of note ~ ")  
   name = gets.chomp()
   if File.exists?(".notes/#{name}") then
     File.foreach(".notes/#{name}"){|line| puts(line)}
   else
-    puts("black note ~ this file is not exists !")
+    puts("black note ➜ this file is not exists !")
   end
 end
 
 def appender()
-  print("black note ~ enter name of note ~ ")
+  print("black note ➜ enter name of note ~ ")
   name = gets.chomp()
   if File.exists?(".notes/#{name}") then
     nn = name
   else
-    puts("black note ~ this file is not exists !")
+    puts("black note ➜ this file is not exists !")
     exit()
   end
 
@@ -89,7 +89,7 @@ def appender()
     print("[#{ln}]~ ")
     note=gets.chomp()
     if note == "quit"
-      print("black note ~ save the change's [Y/n]~ ")
+      print("black note ➜ save the change's [Y/n]~ ")
       yn = gets.chomp()
       if yn == "y"
         saver(notes, nn)
@@ -107,21 +107,21 @@ end
 
 
 def deleter()
-  print("black note ~ enter name of note ~ ")
+  print("black note ➜ enter name of note ~ ")
   name = gets.chomp()
   if File.exists?(".notes/#{name}") then
     File.delete(".notes/#{name}")
-    puts("black note ~ #{name} note deleted [ok]")
+    puts("black note ➜ #{name} note deleted [ok]")
   else
-    puts("black note ~ this file not exists !")
+    puts("black note ➜ this file not exists !")
     exit()
   end
 end
 
 def notes()
-  puts("welcome to `black note` ~ tomorrow never wait's \n\n")
-  puts("[0]- new note\t\t[1]- append note\n[2]- list note's\t[3]- read note\n[4]- delete note\t[5]~ quit")
-  print("black note ~ enter num to chose ~ ")
+  puts("welcome to `black note` ➜ tomorrow never waits \n")
+  puts("\t[0]- new note\t\t[1]- append note\n\t[2]- list notes\t\t[3]- read note\n\t[4]- delete note\t[5]~ quit\n")
+  print("black note ➜ enter num to chose ~ ")
   num = gets.chomp()
   if num == "0" then
     newer()
@@ -136,7 +136,7 @@ def notes()
   elsif num == "5"
     exit()
   else
-    puts("black note ~ eneter the valid number !")
+    puts("black note ➜ enter the valid number !")
   end
 end
 

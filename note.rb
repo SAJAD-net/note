@@ -1,4 +1,3 @@
-
 #this function saved the notes
 def saver(notes, nn)
   maker()

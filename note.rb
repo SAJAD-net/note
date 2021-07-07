@@ -1,4 +1,5 @@
 
+#this function saved the notes
 def saver(notes, nn)
   maker()
   if not(File.exists?(".notes/#{nn}")) then
@@ -14,12 +15,14 @@ def saver(notes, nn)
   nf.close()
 end
 
+#well, this function create the .notes folder
 def maker()
   if not File.directory?(".notes") then
     Dir.mkdir(".notes")
   end
 end
 
+#function for create the new note
 def newer()
   print("black note ➜ enter name of note ~ ")
   nn = gets.chomp()
@@ -50,6 +53,7 @@ def newer()
 
 end
 
+#for lists the notes
 def lister()
   if File.exists?(".notes/notes") then
     File.foreach(".notes/notes"){|line| puts("[N]~ #{line}")}
@@ -58,6 +62,7 @@ def lister()
   end
 end
 
+#read the notes
 def reader()
   print("black note ➜ enter name of note ~ ")  
   name = gets.chomp()
@@ -68,6 +73,7 @@ def reader()
   end
 end
 
+#for append note
 def appender()
   print("black note ➜ enter name of note ~ ")
   name = gets.chomp()
@@ -105,7 +111,7 @@ def appender()
 
 end
 
-
+#delete the note
 def deleter()
   print("black note ➜ enter name of note ~ ")
   name = gets.chomp()
@@ -118,6 +124,7 @@ def deleter()
   end
 end
 
+#main function 
 def notes()
   puts("welcome to `black note` ➜ tomorrow never waits \n")
   puts("\t[0]- new note\t\t[1]- append note\n\t[2]- list notes\t\t[3]- read note\n\t[4]- delete note\t[5]~ quit\n")

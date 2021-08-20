@@ -1,5 +1,4 @@
-# note
+# *note*
 
-## this is a tool for keep the notes
+## *a tool for keep the notes*
 
-## my email : sajadsajad.sch@gmail.com

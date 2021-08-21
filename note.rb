@@ -1,10 +1,15 @@
 #this function saved the notes
+require "sqlite3"
+
 def saver(notes, nn)
     maker()
     if not(File.exists?(".notes/#{nn}")) then
-        fn = File.open(".notes/notes", "a+")
-        fn.puts(nn)
-        fn.close()
+        db = SQLite3::Database.open ".notes/.notes.db"
+        db.execute "INSERT INTO notes (name) VALUES (?)", "#{nn}"
+        db.close()
+        #fn = File.open(".notes/notes", "a+")
+        #fn.puts(nn)
+        #fn.close()
     end
     nf = File.new(".notes/#{nn}", "a+")
     for note in notes do
@@ -18,6 +23,9 @@ end
 def maker()
     if not File.directory?(".notes") then
         Dir.mkdir(".notes")
+        db = SQLite3::Database.open '.notes/.notes.db'
+        db.execute "CREATE TABLE IF NOT EXISTS notes(name varchar(20))"
+        db.close()
     end
 end
 
@@ -37,7 +45,7 @@ def newer()
         print("[#{line}]~ ")
         note=gets.chomp()
         if note == "quit" 
-            print("black note ➜ save the change's [Y/n]~ ")
+            print("black note ➜ save the changes [Y/n] ~ ")
             yn = gets.chomp()
             if yn == "y"
                 saver(notes, nn)
@@ -55,8 +63,13 @@ end
 
 #for lists the notes
 def lister()
-    if File.exists?(".notes/notes") then
-        File.foreach(".notes/notes"){|line| puts("[N]~ #{line}")}
+    if File.exists?(".notes/.notes.db") then
+        #File.foreach(".notes/notes"){|line| puts("[N]~ #{line}")}
+        db = SQLite3::Database.open '.notes/.notes.db'
+        db.execute("SELECT * FROM notes") do |note|
+            puts "[n]~ #{note[0]}"
+        end
+        db.close()
     else 
         puts("black note ➜ there aren't any notes")
     end
@@ -66,6 +79,7 @@ end
 def reader()
     print("black note ➜ enter name of note ~ ")  
     name = gets.chomp()
+    
     if File.exists?(".notes/#{name}") then
         File.foreach(".notes/#{name}"){|line| puts(line)}
     else
@@ -86,10 +100,12 @@ def appender()
 
     lines = File.readlines(".notes/#{nn}")
     ln = 0
+
     for line in lines do
         puts(line)
         ln+=1
     end
+    
     notes = []
     
     while true do
@@ -116,6 +132,9 @@ def deleter()
     print("black note ➜ enter name of note ~ ")
     name = gets.chomp()
     if File.exists?(".notes/#{name}") then
+        db = SQLite3::Database.open '.notes/.notes.db'
+        db.execute "DELETE FROM notes WHERE name = '#{name}'"
+        db.close()
         File.delete(".notes/#{name}")
         puts("black note ➜ #{name} note deleted [ok]")
     else
